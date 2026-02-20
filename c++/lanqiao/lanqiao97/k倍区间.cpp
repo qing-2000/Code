@@ -1,23 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-int main()
-{
-    // 请在此输入您的代码
-    long long n, k, a[100000] = { 0 }, num, ans = 0;
-    cin >> n >> k;
-    for (long long i = 0; i < n; i++) {
-        cin >> a[i];
-    }
-    for (long long i = 0; i < n; i++) {
-        num = 0;
-        for (long long j = i; j < n; j++) {
-            num += a[j];
-            if (num % k == 0) {
-                ans++;
-            }
-            //else break;
-        }
-    }
-    cout << ans;
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:9e9648d19a6b5f135b556262eff4c0b3a40dbd585ea9a308d3d79035634005f7
+size 515

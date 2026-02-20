@@ -1,10 +1,3 @@
-#include<bits/stdc++.h>
-using namespace std;
-int main() {
-	int x = 233, y = 666;
-	double r = sqrt(x * x + y * y),bi=y/x;
-	//round()四舍五入
-	//l=atan2(666,233)*r   弧长
-	cout <<  r*(1+atan2(666,233));
-	return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:cede085054daa0eb0e89357fcb59f037db7a070f447a8b42a89ef98f08216c68
+size 222

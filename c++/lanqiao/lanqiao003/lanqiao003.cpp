@@ -1,13 +1,3 @@
-#include<iostream>
-using namespace std;
-int gcd(int a, int b) {
-	return b == 0 ? a : gcd(b, a % b);
-}
-int main() {
-	int x = 343720, y = 233333, dx = 15, dy = 17, p = y * dx, q = x * dy, g = gcd(p,q);
-	p /= g, q /= g;
-	int t = 2 * p * x/ dx;
-	double ans = t * sqrt(15*15+17*17);
-	printf("%.2f",ans);
-	return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:33af202f0d94ff74383072f4495be53f0882540ad99cc1a3b18272e8f21f3782
+size 325

@@ -1,16 +1,3 @@
-#include <iostream>
-using namespace std;
-int main()
-{
-    // 请在此输入您的代码
-    char a[26] = { 0 };
-    int i = 0;
-    long long n;
-    cin >> n;
-    while (n > 0) {
-        a[i++] = n % 26 - 1 + 'A';
-        n /= 26;
-    }
-    for (int j = i-1; j > -1; j--)cout << a[j];
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:6c088354d55023c8f9f47e68f01d990463fb84268d9bffdaf5345bb7549c2ad6
+size 306

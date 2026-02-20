@@ -1,13 +1,3 @@
-#include<iostream>
-#include<fstream>
-#include<string.h>
-using namespace std;
-int main(){
-    ofstream outfile("bfile.txt");//写入文件默认覆盖
-    if(!outfile){
-        cerr<<"无法创建文件"<<endl;
-    }
-    outfile<<"Hello World!"<<endl;
-    outfile.close();
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:0fc21ed89a5d95d349fa9025ef9cd556c372eecd931fccb66405c470d16d4133
+size 301

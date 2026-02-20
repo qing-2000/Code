@@ -1,17 +1,3 @@
-/*
- * @lc app=leetcode.cn id=746 lang=cpp
- *
- * [746] 使用最小花费爬楼梯
- */
-
-// @lc code=start
-#include<bits/stdc++.h>
-using namespace std;
-class Solution {
-public:
-    int minCostClimbingStairs(vector<int>& cost) {
-        
-    }
-};
-// @lc code=end
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:ea4f6f55f9d7cf1e0e12f0108b62af83d2f1958ca75b02e7543ad727247e88c8
+size 278

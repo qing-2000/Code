@@ -1,13 +1,3 @@
-#include <iostream>
-using namespace std;
-unsigned long long han(unsigned long long i) {
-	if (i == 1 )return 1;
-	return han(i - 1) * 2 + 1;
-}
-int main()
-{
-	// 请在此输入您的代码
-	cout<<han(64);
-
-	return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:eb31547cdba1a1cda27c2701c15495b6067488a7d97f61e57f6c19494595d682
+size 218

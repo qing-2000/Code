@@ -1,22 +1,3 @@
-#include <iostream>
-using namespace std;
-int main()
-{
-    // 请在此输入您的代码
-    int a, b, c;
-    string str[100];
-    cin >> a;
-    for (int i = 0; i < a; i++) {
-        cin >> b >> c;
-        if (c >= (b / 2.00)) {
-            str[i] = "YES";
-        }
-        else {
-            str[i] = "NO";
-        }
-    }
-    for (int i = 0; i < a; i++) {
-        cout << str[i] << endl;
-    }
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:96a198db8684cb916b76cbbbb9ad724ae14c342f226d49d06123ca0daf1bfbe1
+size 424

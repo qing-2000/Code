@@ -1,23 +1,3 @@
-#include <iostream>
-#include<vector>
-#include<string>
-using namespace std;
-int main()
-{
-    // 请在此输入您的代码
-    int ans;
-    int n, m;
-    cin >> n >> m;
-    cin.ignore();
-    string s;
-    for (int i = 0; i < m; i++) {
-        ans = 1;
-        getline(cin, s);
-        for (int i = 0; i < s.size(); i++) {
-            if (s[i] == 'L')ans += (ans - 1);
-            if (s[i] == 'R')ans *= 2;
-        }
-        cout << ans << endl;
-    }
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:5651d8f287eb26bf791b8ede3b5f5ff5453d0685a2a73bb27d991fb924d911ab
+size 481

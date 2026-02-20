@@ -1,21 +1,3 @@
-#include <iostream>
-using namespace std;
-int main()
-{
-    int count = 1, ans = 0, temp;;//从周六开始的计数
-    int arr[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-    for (int i = 1; i < 13; i++) {
-        temp = 1;//天数
-        while (temp <= arr[i]) {
-            if (temp == 1 || temp == 11 || temp == 21 || temp == 31)ans++;
-            else if (count == 1 || count == 2)ans++;
-            count += 1;
-            if (count == 7) {
-                count = 0;
-            }
-            temp++;
-        }
-    }
-    cout << ans;
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f8a0c8bad063f23b0e03e9e6dbd15cc1808250235c41d6699810e4becacb6e3d
+size 583

@@ -1,16 +1,3 @@
-#include<iostream>
-#include<fstream>
-#include<string.h>
-using namespace std;
-int main(){
-    ifstream infile("afile.txt");//打开文件
-    if(!infile){
-        cerr<<strerror(errno)<<endl;
-    }
-    string content;
-    while(getline(infile,content)){//按行读取
-        cout<<content<<endl;
-    }
-    infile.close();
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:38c6c698852d7458dd491dfb4c1f64e0728b402a2482487bb088a178177359aa
+size 352

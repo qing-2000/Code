@@ -1,20 +1,3 @@
-#include<iostream>
-using namespace std;
-class Adder{
-    //抽象保护total，但外部能通过接口获取total的值
-    private:
-        double total;
-    public:
-        double Total(void){
-            return total;
-        }
-        void addt(double num){
-            total+=num;
-        }
-};
-int main(){
-    Adder a;
-    a.addt(10);
-    cout<<a.Total();
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:65fc9591197a6604d90b91fa063bd9e98b6171fa62f23d522d1b1d0f2bd1b2c4
+size 396

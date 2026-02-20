@@ -1,24 +1,3 @@
-//²¢·Ç1-9
-class Solution {
-public:
-    int countLargestGroup(int n) {
-        unordered_map<int, int> hashMap;
-        int maxValue = 0;
-        for (int i = 1; i <= n; ++i) {
-            int key = 0, i0 = i;
-            while (i0) {
-                key += i0 % 10;
-                i0 /= 10;
-            }
-            ++hashMap[key];
-            maxValue = max(maxValue, hashMap[key]);
-        }
-        int count = 0;
-        for (auto& kvpair : hashMap) {
-            if (kvpair.second == maxValue) {
-                ++count;
-            }
-        }
-        return count;
-    }
-};
+version https://git-lfs.github.com/spec/v1
+oid sha256:1bdf13c573cd3f8f2ce0eb780e22ad3819efeccfbf1130be94c3933dd0a24356
+size 605

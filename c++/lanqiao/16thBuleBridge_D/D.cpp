@@ -1,19 +1,3 @@
-#include<bits/stdc++.h>
-using namespace std;
-int main() {
-	int T;
-	cin >> T;
-	while (T--) {
-		int a, b, c, k;
-		cin >> a >> b >> c >> k;
-		for (int i = 0; i < k; i++) {
-			int ta = (b + c) / 2;
-			int tb = (a + c) / 2;
-			int tc = (a + b) / 2;
-			a = ta, b = tb, c = tc;
-			if (a == b && b == c)break;
-		}
-		cout << a <<" " << b << " " << c << endl;
-	}
-	return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:c1d91a88befde7e46dee5a83c4079ab8cde333b73da30d3bc0513785320ce5ea
+size 383

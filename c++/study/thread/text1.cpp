@@ -1,14 +1,3 @@
-//使用函数指针
-#include<iostream>
-#include<thread>
-using namespace std;
-void f(int num){
-    for(int i=0;i<num;i++){
-        cout<<"hello from thread:"<<i<<endl;
-    }
-}
-int main(){
-    thread t1(f,5);
-    t1.join();
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:91bd6fffeb9b1359ba87877a024fdee1683544df5107ba022e7fd6e24ef8f4a4
+size 251

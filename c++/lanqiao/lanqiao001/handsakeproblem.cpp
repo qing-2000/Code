@@ -1,9 +1,3 @@
-//握手问题：总-实际
-//组合数学
-#include<iostream>
-using namespace std;
-int main() {
-	int total = (50 * 49) / 2, reality = (7 * 6) / 2;
-	cout << "握手次数为" << total-reality << endl;
-	return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:e2716909ef56ac2ae12fbeb311f83b4c685a66fbf71c0749f777ee6e8f198fa8
+size 220

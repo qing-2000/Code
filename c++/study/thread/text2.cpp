@@ -1,18 +1,3 @@
-
-//使用函数对象
-#include<iostream>
-#include<thread>
-using namespace std;
-class o{
-    public :
-        void operator()(int count) const {
-        for (int i = 0; i < count; ++i) {
-            std::cout << "Hello from thread (function object)!\n";
-        }
-    }
-};
-int main(){
-    std::thread t2(o(), 5); // 创建线程，传递函数对象和参数
-    t2.join(); // 等待线程完成
-    return 0;
-} 
+version https://git-lfs.github.com/spec/v1
+oid sha256:d55477b062a72675f9eb5a36f0c0093c0625740e86269f3a176afef1c586497d
+size 428

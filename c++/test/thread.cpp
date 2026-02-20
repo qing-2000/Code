@@ -1,24 +1,3 @@
-#include<iostream>
-#include<thread>
-using namespace std;
-void count_thread(){
-    for(int i=1;i<10;i++){
-        for(int j=1;j<=i;j++){
-            cout<<i<<"*"<<j<<"="<<i*j<<"\t";
-        }
-    }
-}
-void output_thread(){
-    char a=97;
-    for(int i=0;i<26;i++){
-        cout<<a<<endl;
-        a+=1;
-    }
-}
-int main(){
-    thread count_handle(count_thread);
-    
-    thread output_handle(output_thread);
-    count_handle.detach();   
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:43ab962751a7b12391e9280028eaebdb9b2f8ff8c609112097157832c6dc3b4c
+size 473

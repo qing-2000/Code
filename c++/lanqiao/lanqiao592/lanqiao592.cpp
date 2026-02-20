@@ -1,17 +1,3 @@
-#include <iostream>
-using namespace std;
-int main()
-{
-    int sum = 0, temp;
-    for (int i = 1; i < 2021; i++) {
-        for (int j = i; j > 0; ) {
-
-            temp = j % 10;
-            if (temp == 2)
-                sum++;
-            j /= 10;
-        }
-    }
-    cout << sum;
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:205ba7b837c30132b9fb6119838e6ce6b47492f5e2d63835a6e87179fde27d99
+size 312

@@ -1,15 +1,3 @@
-#include<bits/stdc++.h>
-using namespace std;
-#define int long long
-const int N=1e5+10;
-int b[N];
-void main() {
-	int n,m;
-	cin >> n>>m;
-	for (int i = 1; i <= n; i++)cin >> b[i];
-	sort(b + 1, b + n + 1);
-	int ans = LLONG_MAX;
-	for (int i = m; i <=n; i++)ans = min(ans, b[i] * b[i] - b[i - m + 1] * b[i - m + 1]);
-	cout << ans;
-	//return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:a680daee5118e1da5fd00ec7617aeca521c8fdf3d37ed7d46feba2862f9c6bc4
+size 353

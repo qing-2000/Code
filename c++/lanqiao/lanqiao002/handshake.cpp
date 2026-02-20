@@ -1,14 +1,3 @@
-#include<iostream>
-using namespace std;
-int main() {
-	int ans=0;
-	for (int i = 1; i <= 50; i++) {
-		for (int j = i+1; j <= 50; j++) {
-			if (!(1 <= i && i <= 7 && 1 < j && j <= 7))
-				ans++;
-		}
-		
-	}
-	cout << "总的握手次数：" << ans << endl;
-	return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:afd3806c52fce6cb4da1ea901636f73c864c77339636eae4d0ac05bdab9e9535
+size 276

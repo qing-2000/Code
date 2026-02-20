@@ -1,13 +1,3 @@
-#include <bits/stdc++.h>
-//区间内满足等于两个数的平方差的数只有奇数和4的倍数
-#define int unsigned long long
-using namespace std;
-int l = 0, r = 0, cnt = 0;
-int sum(int x) {
-    return x / 4 + (x + 1) / 2;
-}
-signed main() {
-    cin >> l >> r;
-    cout << sum(r) - sum(l - 1);
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:6299e023e65f636f1bfcdb7c03fdf89613c83c6ac286b41f344f28ea4fa96cb4
+size 302

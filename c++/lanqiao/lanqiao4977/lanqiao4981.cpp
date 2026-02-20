@@ -1,14 +1,3 @@
-#include <iostream>
-using namespace std;
-int main()
-{
-    // 请在此输入您的代码
-    int n, sum = 0;
-    cin >> n;
-    cout << endl;
-    for (int i = 0; i < n; i++) {
-        sum += cin >> sum;
-    }
-    cout << sum;
-    return 0;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:d35b27a4cb9d84672e28c1963a64de73e63ed0e104432c4f92827089c1270b7b
+size 244
