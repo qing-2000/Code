@@ -1,0 +1,3 @@
+﻿  13.cpp
+D:\code\c++\lanqiao\lanqiao13\13.cpp(47,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  lanqiao13.vcxproj -> D:\code\c++\lanqiao\lanqiao13\x64\Debug\lanqiao13.exe

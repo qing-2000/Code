@@ -1,0 +1,29 @@
+﻿  lanqiao1216走迷宫.cpp
+D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(6,12): error C2109: 下标要求数组或指针类型
+D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(8,12): error C2109: 下标要求数组或指针类型
+D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(10,12): error C2109: 下标要求数组或指针类型
+D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(10,22): error C2561: “function”: 函数必须返回值
+      D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(5,5):
+      参见“function”的声明
+  
+D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(16,9): error C2872: “function”: 不明确的符号
+      D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(5,5):
+      可能是“int function(int,int,int,int,std::vector<std::vector<int,std::allocator<int>>,std::allocator<std::vector<int,std::allocator<int>>>> (__cdecl *)(int,std::vector<int,std::allocator<int>>),int)”
+      D:\vs-community\VC\Tools\MSVC\14.42.34433\include\functional(1074,7):
+      或    “std::function”
+  
+D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(18,8): error C2109: 下标要求数组或指针类型
+D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(35,11): error C2872: “function”: 不明确的符号
+      D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(5,5):
+      可能是“int function(int,int,int,int,std::vector<std::vector<int,std::allocator<int>>,std::allocator<std::vector<int,std::allocator<int>>>> (__cdecl *)(int,std::vector<int,std::allocator<int>>),int)”
+      D:\vs-community\VC\Tools\MSVC\14.42.34433\include\functional(1074,7):
+      或    “std::function”
+  
+D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(35,11): error C2664: “int function(int,int,int,int,std::vector<std::vector<int,std::allocator<int>>,std::allocator<std::vector<int,std::allocator<int>>>> (__cdecl *)(int,std::vector<int,std::allocator<int>>),int)”: 无法将参数 5 从“std::vector<std::vector<int,std::allocator<int>>,std::allocator<std::vector<int,std::allocator<int>>>>”转换为“std::vector<std::vector<int,std::allocator<int>>,std::allocator<std::vector<int,std::allocator<int>>>> (__cdecl *)(int,std::vector<int,std::allocator<int>>)”
+      D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(35,32):
+      没有可用于执行该转换的用户定义的转换运算符，或者无法调用该运算符
+      D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(5,5):
+      参见“function”的声明
+      D:\code\c++\lanqiao\lanqiao1216\lanqiao1216走迷宫.cpp(35,11):
+      尝试匹配参数列表“(int, int, int, int, std::vector<std::vector<int,std::allocator<int>>,std::allocator<std::vector<int,std::allocator<int>>>>, int)”时
+  

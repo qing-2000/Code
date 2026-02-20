@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\code\\c\u002B\u002B\\lanqiao\\lanqiao99\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{88970D9E-D0FE-4FF7-9533-2CF8A06E25C4}|lanqiao99.vcxproj|D:\\code\\c\u002B\u002B\\lanqiao\\lanqiao99\\lanqiao99.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{88970D9E-D0FE-4FF7-9533-2CF8A06E25C4}|lanqiao99.vcxproj|solutionrelative:lanqiao99.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "lanqiao99.cpp",
+              "DocumentMoniker": "D:\\code\\c\u002B\u002B\\lanqiao\\lanqiao99\\lanqiao99.cpp",
+              "RelativeDocumentMoniker": "lanqiao99.cpp",
+              "ToolTip": "D:\\code\\c\u002B\u002B\\lanqiao\\lanqiao99\\lanqiao99.cpp",
+              "RelativeToolTip": "lanqiao99.cpp",
+              "ViewState": "AgIAABgAAAAAAAAAAAAwwBsAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-21T10:55:29.109Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

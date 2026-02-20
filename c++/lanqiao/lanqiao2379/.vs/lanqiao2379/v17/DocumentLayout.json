@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\code\\c\u002B\u002B\\lanqiao\\lanqiao2379\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{24FA9E13-E590-482D-B7D5-8EC0932731F7}|lanqiao2379.vcxproj|D:\\code\\c\u002B\u002B\\lanqiao\\lanqiao2379\\lanqiao2379.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{24FA9E13-E590-482D-B7D5-8EC0932731F7}|lanqiao2379.vcxproj|solutionrelative:lanqiao2379.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "lanqiao2379.cpp",
+              "DocumentMoniker": "D:\\code\\c\u002B\u002B\\lanqiao\\lanqiao2379\\lanqiao2379.cpp",
+              "RelativeDocumentMoniker": "lanqiao2379.cpp",
+              "ToolTip": "D:\\code\\c\u002B\u002B\\lanqiao\\lanqiao2379\\lanqiao2379.cpp",
+              "RelativeToolTip": "lanqiao2379.cpp",
+              "ViewState": "AgIAAAMAAAAAAAAAAAA9wAoAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-25T12:04:45.814Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
