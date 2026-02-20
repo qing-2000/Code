@@ -1,0 +1,14 @@
+@startuml
+class SingletonShapeFactory {
+    - instance: SingletonShapeFactory
+    - SingletonShapeFactory()
+    + getInstance(): SingletonShapeFactory
+    + createShape(type: String): Shape
+}
+
+class Client {
+    + useSingletonFactory(): void
+}
+
+Client --> SingletonShapeFactory
+@enduml
