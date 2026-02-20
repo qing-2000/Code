@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    账户名： <input type="text" name="username" id="username">
+    密码: <input type="password" name="password" id="password">
+    <button id="submit">提交</button>
+    <script>
+
+        document.getElementById("submit").addEventListener("click", function () {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            console.log(username)
+            console.log(password)
+        })
+    </script>
+</body>
+
+</html>

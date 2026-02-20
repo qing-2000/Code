@@ -1,0 +1,5 @@
+﻿  Rstyle.cpp
+D:\code\c++\lanqiao\lanqiao005\Rstyle.cpp(12,8): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+D:\code\c++\lanqiao\lanqiao005\Rstyle.cpp(13,9): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+D:\code\c++\lanqiao\lanqiao005\Rstyle.cpp(6,8): warning C4101: “R”: 未引用的局部变量
+  lanqiao005.vcxproj -> D:\code\c++\lanqiao\lanqiao005\x64\Debug\lanqiao005.exe

@@ -1,0 +1,21 @@
+﻿  汉诺塔.cpp
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,17): warning C4838: 从“int”转换到“char”需要收缩转换
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,17): warning C4305: “初始化”: 从“int”到“char”截断
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,17): warning C4309: “初始化”: 截断常量值
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,22): warning C4838: 从“int”转换到“char”需要收缩转换
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,22): warning C4305: “初始化”: 从“int”到“char”截断
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,22): warning C4309: “初始化”: 截断常量值
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,27): warning C4838: 从“int”转换到“char”需要收缩转换
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,27): warning C4305: “初始化”: 从“int”到“char”截断
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,27): warning C4309: “初始化”: 截断常量值
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,32): warning C4838: 从“int”转换到“char”需要收缩转换
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,32): warning C4305: “初始化”: 从“int”到“char”截断
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,32): warning C4309: “初始化”: 截断常量值
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,37): warning C4838: 从“int”转换到“char”需要收缩转换
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,37): warning C4305: “初始化”: 从“int”到“char”截断
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,37): warning C4309: “初始化”: 截断常量值
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,42): warning C4838: 从“int”转换到“char”需要收缩转换
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,42): warning C4305: “初始化”: 从“int”到“char”截断
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(7,42): warning C4309: “初始化”: 截断常量值
+D:\code\c++\lanqiao\lanqiao832\汉诺塔.cpp(6,6): warning C4101: “n”: 未引用的局部变量
+  lanqiao832.vcxproj -> D:\code\c++\lanqiao\lanqiao832\x64\Debug\lanqiao832.exe

@@ -1,0 +1,4 @@
+﻿  binary.cpp
+D:\code\c++\algorithm\simple_binary_search\binary.cpp(15,25): warning C4244: “return”: 从“__int64”转换到“int”，可能丢失数据
+D:\code\c++\algorithm\simple_binary_search\binary.cpp(28,35): warning C4244: “return”: 从“__int64”转换到“int”，可能丢失数据
+  simple_binary_search.vcxproj -> D:\code\c++\algorithm\simple_binary_search\x64\Debug\simple_binary_search.exe

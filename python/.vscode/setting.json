@@ -1,0 +1,15 @@
+{
+    "terminal.integrated.profiles.windows": {
+        "Python PowerShell": {
+            "path": "powershell.exe",
+            "args": [
+                "-NoExit",
+                "-Command",
+                "& 'D:\\python\\python.exe' -i"
+            ],
+            "icon": "terminal"
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "Python Interactive",
+    "python.terminal.activateEnvironment": true
+}

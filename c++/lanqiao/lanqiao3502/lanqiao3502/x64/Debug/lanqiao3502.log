@@ -1,0 +1,4 @@
+﻿  平方差.cpp
+D:\code\c++\lanqiao\lanqiao3502\平方差.cpp(9,23): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+D:\code\c++\lanqiao\lanqiao3502\平方差.cpp(23,28): warning C4244: “参数”: 从“__int64”转换到“int”，可能丢失数据
+  lanqiao3502.vcxproj -> D:\code\c++\lanqiao\lanqiao3502\x64\Debug\lanqiao3502.exe

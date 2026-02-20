@@ -1,0 +1,4 @@
+将mysqlcppconnx-2-vs14.dll路径添加到《系统环境变量》path中
+将include路径添加到c/c++附加包路径
+将v14路径添加到链接器，常规，附加包路径
+将mysqlcppconn.lib，mysqlcppconnx.lib添加到输入，附加

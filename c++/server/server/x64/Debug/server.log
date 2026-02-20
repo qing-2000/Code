@@ -1,0 +1,55 @@
+﻿  FileName.cpp
+D:\code\c++\server\FileName.cpp(20,5): error C2065: “sqlite3”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(20,14): error C2065: “db”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(22,25): error C2065: “AF_INET”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(22,34): error C2065: “SOCK_STREAM”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(22,18): error C3861: “socket”: 找不到标识符
+D:\code\c++\server\FileName.cpp(31,24): error C2079: “saddr”使用未定义的 struct“main::sockaddr_in”
+D:\code\c++\server\FileName.cpp(32,24): error C2065: “AF_INET”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(33,22): error C3861: “htons”: 找不到标识符
+D:\code\c++\server\FileName.cpp(35,29): error C2065: “INADDR_ANY”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(40,15): error C3861: “bind”: 找不到标识符
+D:\code\c++\server\FileName.cpp(49,11): error C3861: “listen”: 找不到标识符
+D:\code\c++\server\FileName.cpp(61,38): error C2065: “db”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(61,15): error C3861: “sqlite3_open”: 找不到标识符
+D:\code\c++\server\FileName.cpp(65,51): error C2065: “db”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(65,36): error C3861: “sqlite3_errmsg”: 找不到标识符
+D:\code\c++\server\FileName.cpp(65,16): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“unknown-type”
+D:\code\c++\server\FileName.cpp(70,24): error C2079: “caddr”使用未定义的 struct“main::sockaddr_in”
+D:\code\c++\server\FileName.cpp(75,22): error C3861: “accept”: 找不到标识符
+D:\code\c++\server\FileName.cpp(89,10): error C2065: “connfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(89,5): error C3861: “read”: 找不到标识符
+D:\code\c++\server\FileName.cpp(90,10): error C2065: “connfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(90,5): error C3861: “read”: 找不到标识符
+D:\code\c++\server\FileName.cpp(102,27): error C2065: “db”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(102,9): error C3861: “sqlite3_get_table”: 找不到标识符
+D:\code\c++\server\FileName.cpp(102,72): error C2065: “SQLITE_OK”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(104,9): error C3861: “sqlite3_free”: 找不到标识符
+D:\code\c++\server\FileName.cpp(105,15): error C2065: “connfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(105,9): error C3861: “write”: 找不到标识符
+D:\code\c++\server\FileName.cpp(106,15): error C2065: “connfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(106,9): error C3861: “close”: 找不到标识符
+D:\code\c++\server\FileName.cpp(113,19): error C2065: “connfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(113,13): error C3861: “write”: 找不到标识符
+D:\code\c++\server\FileName.cpp(117,19): error C2065: “connfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(117,13): error C3861: “write”: 找不到标识符
+D:\code\c++\server\FileName.cpp(118,19): error C2065: “connfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(118,13): error C3861: “close”: 找不到标识符
+D:\code\c++\server\FileName.cpp(123,15): error C2065: “connfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(123,9): error C3861: “write”: 找不到标识符
+D:\code\c++\server\FileName.cpp(124,15): error C2065: “connfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(124,9): error C3861: “close”: 找不到标识符
+D:\code\c++\server\FileName.cpp(128,5): error C3861: “sqlite3_free_table”: 找不到标识符
+D:\code\c++\server\FileName.cpp(135,20): error C2065: “connfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(135,15): error C3861: “read”: 找不到标识符
+D:\code\c++\server\FileName.cpp(146,11): error C2065: “connfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(146,5): error C3861: “close”: 找不到标识符
+D:\code\c++\server\FileName.cpp(119,13): error C2044: 非法 continue
+D:\code\c++\server\FileName.cpp(125,9): error C2044: 非法 continue
+D:\code\c++\server\FileName.cpp(148,1): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+D:\code\c++\server\FileName.cpp(148,15): error C2065: “db”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(149,1): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+D:\code\c++\server\FileName.cpp(149,7): error C2065: “sockfd”: 未声明的标识符
+D:\code\c++\server\FileName.cpp(151,1): error C2059: 语法错误:“return”
+D:\code\c++\server\FileName.cpp(152,1): error C2059: 语法错误:“}”
+D:\code\c++\server\FileName.cpp(152,1): error C2143: 语法错误: 缺少“;”(在“}”的前面)

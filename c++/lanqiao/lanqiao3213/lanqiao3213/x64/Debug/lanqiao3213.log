@@ -1,0 +1,4 @@
+﻿  平方差（高精度）.cpp
+D:\code\c++\lanqiao\lanqiao3213\平方差（高精度）.cpp(26,23): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+D:\code\c++\lanqiao\lanqiao3213\平方差（高精度）.cpp(27,23): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+  lanqiao3213.vcxproj -> D:\code\c++\lanqiao\lanqiao3213\x64\Debug\lanqiao3213.exe
