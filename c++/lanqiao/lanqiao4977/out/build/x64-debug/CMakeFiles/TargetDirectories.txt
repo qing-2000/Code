@@ -1,3 +1,0 @@
-D:/code/c++/lanqiao/lanqiao4977/out/build/x64-debug/CMakeFiles/lanqiao4977.dir
-D:/code/c++/lanqiao/lanqiao4977/out/build/x64-debug/CMakeFiles/edit_cache.dir
-D:/code/c++/lanqiao/lanqiao4977/out/build/x64-debug/CMakeFiles/rebuild_cache.dir

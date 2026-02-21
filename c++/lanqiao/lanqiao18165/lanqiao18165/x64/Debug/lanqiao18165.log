@@ -1,9 +1,0 @@
-﻿  奇妙变换.cpp
-D:\code\c++\lanqiao\lanqiao18165\奇妙变换.cpp(8,14): error C2131: 表达式的计算结果不是常数
-      D:\code\c++\lanqiao\lanqiao18165\奇妙变换.cpp(8,12):
-      因读取超过生命周期的变量而失败
-      D:\code\c++\lanqiao\lanqiao18165\奇妙变换.cpp(8,12):
-      请参见“n”的用法
-  
-D:\code\c++\lanqiao\lanqiao18165\奇妙变换.cpp(9,41): error C3863: 不可指定数组类型“ull [n+1]”
-D:\code\c++\lanqiao\lanqiao18165\奇妙变换.cpp(11,15): error C3863: 不可指定数组类型“ull [n+1]”

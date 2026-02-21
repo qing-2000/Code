@@ -1,4 +1,0 @@
-﻿  lanqiao502.cpp
-D:\code\c++\lanqiao\lanqiao502\lanqiao502.cpp(20,17): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-D:\code\c++\lanqiao\lanqiao502\lanqiao502.cpp(21,24): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-  lanqiao502.vcxproj -> D:\code\c++\lanqiao\lanqiao502\x64\Debug\lanqiao502.exe

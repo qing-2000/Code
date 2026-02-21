@@ -1,3 +1,0 @@
-﻿  test.cpp
-D:\code\c++\lanqiao\lanqiao006\test.cpp(4,15): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-  lanqiao006.vcxproj -> D:\code\c++\lanqiao\lanqiao006\x64\Debug\lanqiao006.exe

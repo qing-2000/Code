@@ -1,4 +1,0 @@
-﻿  E.cpp
-D:\code\c++\lanqiao\16thBlueBridge_E\E.cpp(4,16): warning C4244: “初始化”: 从“double”转换到“__int64”，可能丢失数据
-D:\code\c++\lanqiao\16thBlueBridge_E\E.cpp(6,6): warning C4326: “main”的返回类型应为“int”而非“void”
-  16thBlueBridge_E.vcxproj -> D:\code\c++\lanqiao\16thBlueBridge_E\x64\Debug\16thBlueBridge_E.exe

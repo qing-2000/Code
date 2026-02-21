@@ -1,3 +1,0 @@
-﻿  mach.cpp
-D:\code\c++\lanqiao\lanqiao5132\mach.cpp(8,11): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-  lanqiao5132.vcxproj -> D:\code\c++\lanqiao\lanqiao5132\x64\Debug\lanqiao5132.exe

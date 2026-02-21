@@ -1,4 +1,0 @@
-﻿  graphy.cpp
-D:\code\c++\object_oriented\test1\graphy.cpp(15,39): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-D:\code\c++\object_oriented\test1\graphy.cpp(16,39): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
-  test1.vcxproj -> D:\code\c++\object_oriented\test1\x64\Debug\test1.exe
