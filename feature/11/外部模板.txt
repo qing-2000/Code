@@ -1,0 +1,2 @@
+template class std::vector<bool>; // 强行实例化
+extern template class std::vector<double>; // 不在该当前编译文件中实例化模板

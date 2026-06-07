@@ -1,0 +1,31 @@
+重载：
+函数同名不同参
+构造函数常用重载
+已有默认值的构造函数不能使用空值重载
+
+传参：传值by value，传引用by reference
+返回值也尽量by reference
+
+特殊构造函数
+// singleton 单例，只允许一份，构造函数放在private中
+// class A
+// {
+// public:
+//     static A &getInstance();
+//     void setup() {};
+
+// private:
+//     A();
+//     A(const A &rhs);
+// };
+// A &A::getInstance()
+// {
+//     static A a;
+//     return a;
+// }
+
+
+所有成员函数都带有this隐藏参数
+
+操作符重载：
+类名::operator+= 属于运算符重载
