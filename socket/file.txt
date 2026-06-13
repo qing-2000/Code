@@ -1,0 +1,753 @@
+在网络编程中，套接字就像是网络世界的通信端口。
+每一个联网的应用程序，为了能够互发消息，都会使用到这样一个端口。
+这个端口允许数据从一个程序流向另一个程序。
+简而言之，套接字是应用程序用来在网络上交流的桥梁。
+
+
+TCP套接字 (SOCK_STREAM):
+
+这是一种可靠的套接字连接，保证数据传输的完整性和顺序。
+必须先建立连接，才能传输数据。
+常用于需要准确数据传输的应用，如网页浏览和文件传输。
+
+
+UDP套接字 (SOCK_DGRAM):
+
+不需要建立连接，但是数据传输可能会丢失，没有先后顺序。
+适用于视频流和在线游戏，这些应用可以容忍一定的数据丢失。
+
+
+原始套接字 (SOCK_RAW):
+
+允许直接对较低层次的协议如 IP 或 ICMP 进行访问和操作，它绕过了 TCP 和 UDP 的处理。
+开发者可以使用原始套接字来构建自定义的协议或直接处理来自网络的数据包。
+通常用于需要进行网络诊断或网络安全应用，如自定义的ping实现，或者网络嗅探器。
+
+套接字常用api
+socket()                    : 创建套接字
+bind()                      : 绑定套接字到本地地址
+listen()                    : 监听网络连接
+accept()                    : 接受网络连接
+connect()                   : 连接到远程主机
+send(), recv()              : 发送和接收数据（面向连接的套接字）
+sendto(), recvfrom()        : 发送和接收数据（无连接的套接字）
+close() ,shutdown()         : 关闭套接字
+getsockopt(), setsockopt()  : 获取和设置套接字选项
+
+
+套接字地址结构以及地址转换 API
+sockaddr 是一个通用的套接字地址结构，它通常与特定的地址族结构（如 sockaddr_in ）一起使用。
+这是因为多数套接字函数，如 bind(), connect(), 和 accept()，需要使用指向 sockaddr 结构的指针的参数。
+struct sockaddr {
+   
+   sa_family_t     sa_family;      /* Address family */
+   char            sa_data[];      /* Socket address */
+};
+
+// 套接字地址结构（适用于IPv4网络通信的地址结构）
+struct sockaddr_in 
+{
+   
+    sa_family_t    sin_family; # address family: AF_INET 
+    in_port_t      sin_port;   # port in network byte order 
+    struct in_addr sin_addr;   # ip address 
+};
+
+struct in_addr
+{
+   
+    uint32_t       s_addr;    # address in network byte order 
+};
+
+网络地址转换函数 (用于将IP地址在可打印的格式和二进制结构之间转换)
+将点分十进制的IP地址（如"192.168.1.1"）转换成网络字节顺序的二进制形式
+inet_pton()   
+将网络字节顺序的二进制IP地址转换为点分十进制字符串格式
+inet_ntop()  
+
+字节序转换 API
+在网络编程中，字节序（也称为端序）指的是数值在内存中保存的顺序。
+不同的计算机体系结构可能会采用不同的字节序来表示数据。
+最常见的两种字节序是大端字节序（Big-Endian）和小端字节序（Little-Endian）。
+在网络通信中，为了确保数据在不同的系统间正确传输和解释，
+定义了一个统一的字节序，即：网络字节序，它采用大端字节序。
+
+由于主机字节序与网络字节序可能不同，因此在发送数据前，发送方需要将其主机字节序的数值转换为网络字节序；
+接收方收到数据后，需要将网络字节序的数值转换回主机字节序。
+
+// 将无符号长整型数/无符号短整型数从主机字节顺序转换为网络字节顺序。
+htonl() 和 htons()  
+// 将一个无符号长整型数/无符号短整型数从网络字节顺序转换为主机字节顺序。
+ntohl() 和 ntohs()  
+
+非阻塞i/o
+阻塞让出 CPU，解决的是“单个任务等待时，系统整体不浪费 CPU”的问题；
+而非阻塞配合 epoll，解决的是“让一个程序有能力同时处理海量任务，并且只为真正有活干的任务消耗 CPU”的问题。
+
+i/o多路复用
+I/O 多路复用允许一个进程或线程同时监控多个网络 sockets 的状态。
+它通过单个系统调用（select）来检查多个 sockets 是否有数据可读、可写或是否有异常。
+Linux 提供了多种 I/O 复用技术，包括上面提到的 select、以及 poll、epoll。
+
+等待网络数据到达
+
+在 I/O 多路复用模式下，进程不会在单个 socket 上阻塞等待数据到达。相反，当任何一个被监控的 socket 接收到数据，系统调用（如select）会返回。当 select 返回时，它指示一个或多个 sockets 已接收到数据。这意味着数据已经被网络接口卡（NIC）通过 DMA 操作传输到相应的 socket 接收缓冲区中。
+
+这样，进程不必在每个 socket 上分别等待，而是在多个sockets上集中等待，提高了效率。
+
+但是，在 I/O 多路复用中， select、poll 或 epoll 系统调用依然会阻塞等待网络数据的到达
+
+等待CPU复制数据至用户空间
+
+进程随后可以立即对准备就绪的 socket fd 进行 read 操作。
+因为数据已经在内核的缓冲区中，CPU 只需要将数据从内核空间复制到用户空间。但这个拷贝数据的完成
+
+也就是说在 I/O 多路复用中，select、poll 或 epoll 系统调用依然会阻塞等待网络数据的到达，
+但是他的优势在于可以监控多个 sockets 的接收缓冲区是否有数据到来。
+当多个 sockets 的接收缓冲区有数据到来，进程会一直等待 CPU 复制数据至用户空间才能干其他任务。
+
+信号驱动I/O
+信号驱动 I/O 也是属于Linux 中的一种 IO 模型，它允许应用程序在不阻塞等待 I/O 操作完成的情况下继续执行其他任务。当 I/O 操作（如数据的读取或写入）准备就绪时，操作系统会向应用程序发送一个信号，通知它可以开始执行 I/O 操作了。这种模式主要通过使用信号（如 SIGIO）来实现。
+
+两个等待时间点对信号驱动 I/O 的影响 :
+
+等待网络数据到达：在信号驱动 I/O 模型中，应用程序在等待数据到达时不需要阻塞等待。它可以继续执行其他任务或处于休眠状态，直到操作系统发出数据已准备就绪的信号（如 SIGIO）。
+
+等待内核复制数据到用户空间：当应用程序收到信号并开始实际的 I/O 操作（如 read）时，它仍然需要等待操作系统将数据从内核空间复制到用户空间。
+
+尽管信号驱动 I/O 提供了一种异步通知机制，使得应用程序能够在I/O事件准备好时接收通知，但它在实践中不如其他模型（如IO复用）那么广泛使用，原因包括：
+
+编程复杂性：使用信号驱动I/O要求程序员熟悉信号处理和非阻塞I/O操作，这增加了编程的复杂性。
+
+信号合并和丢失
+Linux 信号处理机制通常不会为同一类型的信号排队。这意味着如果在处理一个信号时另一个相同类型的信号发生，
+后者可能不会触发额外的信号处理调用，导致应用程序可能错过一些I/O事件的通知。
+这种信号的合并行为限制了信号驱动I/O模型在高并发场景下准确响应每个I/O事件的能力。
+
+更好的替代方案：对于需要处理多个并发I/O操作的应用程序，I/O复用（特别是epoll）提供了更高的效率和更好的控制。
+epoll特别适用于高并发场景，并且相对于信号驱动I/O更易于管理和使用。
+
+
+异步I/O（Asynchronous I/O）
+在异步 I/O 模型中，当应用程序发起一个I/O操作（例如 aio_read 读取）时，
+它不需要等待操作完成就可以继续执行其他任务。应用程序仅仅是向操作系统发出 I/O 请求，
+并且当 I/O 操作真正完成时，操作系统会通知应用程序。
+这种方式允许应用程序更有效地利用 CPU 时间，因为它不需要在 I/O 操作完成前空闲等待。
+
+在异步 IO 中，不管是等待数据准备好还是等待 CPU 复制数据至用户空间，用户进程都不需要等待。
+
+Linux 网络 I/O 性能优化：
+硬件优化：
+1.使用多核 CPU ：确保服务器有足够的CPU核心来处理高网络负载。
+2.内存升级：增加足够的内存以支持高速网络操作，特别是对于需要大量内存缓存的应用。
+3.网络接口卡：升级NIC：使用更高速率的NIC，例如从1Gbps升级到10Gbps或更高。
+或者使用 NIC 多队列（Multi-queue）：使用支持多队列的NIC，以便分散处理负载到多个CPU核心。
+
+软件优化：
+应用程序本身的设计对网络 I/O 性能有着重大影响：
+选择合适的 I/O 模型：
+使用零拷贝技术：
+批量处理和缓冲 : 聚集数据，以减少网络交互和磁盘操作的次数。
+a:聚集数据，b.缓冲区管理，c.适用场景
+并发和并行处理：利用多核处理器的优势，通过多线程或多进程来提高并发处理能力。
+
+操作系统级别的调整对于优化网络 I/O ：
+增加文件描述符限制：对于高并发的网络服务器，提高文件描述符的限制是必要的，以避免因达到文件描述符上限而无法接受新连接。
+你可以通过 ulimit -n 命令或修改 /etc/security/limits.conf 文件来增加这个限制。
+
+调整 TCP 协议栈参数：
+a：缓冲区大小和资源管理，b: 连接建立和终止，c :连接保活和状态管理，d:性能优化 : 这些参数用于提升网络性能，减少延迟。
+
+
+Linux 常见的服务器模型:
+单进程服务器：一对一服务
+服务器使用一个主进程来逐个处理客户端的连接请求。这意味着，当服务器正在服务一个客户端时，其他客户端必须等待直到当前客户端服务结束。
+server_fd = socket();
+bind();
+listen();
+// The main server loop
+while (1) {
+   
+    newsockfd = accept(server_fd，...);
+    memset(buffer, 0, 256);
+    // Read and write to the connection in a loop
+    while (1) {
+   
+        n = read(newsockfd, buffer, 255);
+        if (n == 0) break; // If read returns 0, the client has closed the connection
+
+        // printf("Client: %s\n", buffer);
+        write(newsockfd, buffer, strlen(buffer));
+    }
+    close(newsockfd);
+}
+
+缺点：
+
+无法实现并发： 单进程服务器在任何时刻只能处理一个客户端的请求。这意味着如果有多个客户端同时请求服务，除了第一个之外的所有请求都必须等待，这限制了服务器的并发处理能力。
+
+性能瓶颈： 由于服务器在处理当前请求时无法接受新的连接，这会导致服务器对其他客户端的响应时间延长，特别是在高流量的情况下，效率低下。
+
+资源利用不充分： 在多核心处理器上，单进程模型无法充分利用多核的优势，因为它只在一个核心上运行，没有并行处理能力。
+
+多进程服务器:
+服务器为每个新的客户端连接创建一个独立的进程。这允许服务器同时处理多个客户端请求，极大地提高了并发处理能力和资源利用率。
+server_fd = socket();
+bind();
+listen();
+
+while(1) {
+    int new_socket =accept(server_fd, ...);    
+    int pid = fork();
+    if(pid < 0) {
+        close(new_socket);
+    } else if(pid == 0) {
+      close(server_fd); // Child does not need the listener
+      handle_client(new_socket);
+    } else {
+        close(new_socket); // Parent does not need this socket
+    }
+}
+
+void handle_client(int new_socket) {
+    char buffer[1024];
+    int bytes_read;
+    while(1) {
+        bytes_read = read(new_socket, buffer, sizeof(buffer));
+        if (bytes_read <= 0) {
+            break; // Break the loop if read error or end of file
+        }
+        write(new_socket, buffer, bytes_read);
+    }
+    close(new_socket);
+    exit(0);
+}
+多进程服务器优点：
+
+稳定性: 多进程服务器中，每个进程是独立的。如果一个进程崩溃，通常不会影响到其他进程，从而提高了服务器的整体稳定性。
+
+隔离性: 每个进程有自己的地址空间，这意味着进程之间的内存是隔离的。这样可以防止某个进程的错误操作影响到其他进程。
+
+利用多核优势: 多进程模型能够在多核处理器上运行，每个进程可以被操作系统调度到不同的CPU核心上，充分利用硬件资源。
+
+缺点：
+
+资源消耗: 每个进程都需要一定量的内存和系统资源，如果进程数过多，会占用大量的系统资源，这可能导致服务器的性能下降。
+
+上下文切换开销: 多进程意味着操作系统需要频繁地在进程之间进行上下文切换，这个过程涉及到保存和加载寄存器、更新各种表等操作，会消耗一定的CPU时间。
+
+多线程服务器:
+在同一个进程内创建多个线程来处理客户端请求，每个线程能够独立执行，它们共享进程的资源，如内存空间等资源。而且上下文切换也更快。
+server_fd = socket();
+bind(server_fd, ...);
+listen(server_fd, ...);
+
+while (1) {
+    int new_socket = accept(server_fd, ...);
+    pthread_t thread_id;
+    if (pthread_create(&thread_id, NULL, handle_client, (void*)&new_socket) != 0) {
+        // Handle error
+    }
+}
+
+void* handle_client(void* socket) {
+    int new_socket = *(int*)socket;
+    char buffer[1024];
+    int bytes_read;
+    while (1) {
+        bytes_read = read(new_socket, buffer, sizeof(buffer));
+        if (bytes_read <= 0) {
+            break; // Break the loop if read error or end of file
+        }
+        write(new_socket, buffer, bytes_read);
+    }
+    close(new_socket);
+    pthread_exit(NULL);
+}
+多线程服务器优缺点：
+
+资源效率: 线程共享进程的内存空间，相较于多进程模型，多线程服务器在内存和资源上的开销更小。
+上下文切换效率: 线程间的上下文切换比进程间的切换要快，因为线程共享许多资源，切换时所需的资源较少（线程切换一般只需要切换各自寄存器和栈上的数据）。
+利用多核优势: 线程可以分布在多个 CPU 核心上运行，这使得多线程服务器能够充分利用多核 CPU 的计算能力。
+缺点：
+
+同步复杂性: 因为线程共享内存和资源，所以必须仔细设计同步机制来避免竞态条件和其他并发问题。
+稳定性风险: 一个线程的错误可能影响整个进程，因为它们共享同一内存空间。这可能导致整个服务器程序崩溃。
+资源限制: 虽然线程比进程轻量，但大量线程仍然会消耗大量系统资源，尤其是在高并发情况下。
+调试困难: 多线程程序的调试较为复杂，尤其是当出现了线程安全问题时，这些问题可能难以重现和定位。
+
+线程池模型：
+服务器启动时会预先创建一定数量的线程，这些线程存放在池中，并不立即执行任务。当客户端请求到达时，请求会被分配给线程池中的一个空闲线程，该线程负责处理整个请求过程。处理完毕后，线程并不销毁，而是返回到池中等待处理下一个请求。
+服务器（Server）：这是整个流程开始的地方。服务器初始化一个线程池，并不断监听客户端的连接请求。当一个客户端连接请求到来时，服务器接受这个连接（accept()），然后把相应的任务（job：一般是读写客户端数据的逻辑）添加到线程池的任务队列中去。最终，当服务器不再需要线程池时，会销毁它。
+
+线程池（ThreadPool）：线程池是预先创建的线程集合，用于执行多个任务。它分为两个主要部分：
+
+任务队列（Job Queue）：这里存放所有待处理的任务（jobs）。当服务器接受一个客户端的连接，它会创建一个任务，并将其添加到这个队列中。
+线程队列（Thread Queue）：这里存放的是线程池中所有可用的线程。当任务队列中有任务时，线程池会分配一个线程去执行这个任务。
+客户端（Clients）：客户端通过网络连接与服务器进行通信。
+
+I/O多路复用服务器
+什么是 I/O 多路复用？
+在 Linux 中，I/O 多路复用是一种允许单个进程或线程同时监控多个文件描述符（通常是网络套接字）上的读写就绪状态的技术。这使得程序能够在一个或多个文件描述符上发生 I/O 事件时被通知，从而对这些事件作出响应（比如进行读写操作）。这种机制极大地提高了处理多个并发网络连接的效率，因为它允许使用较少的系统资源（如进程和线程）来管理大量的连接。
+
+Linux 提供了多种 I/O 多路复用的机制，如 select, poll, 和 epoll。这些技术的主要区别在于它们处理大量文件描述符的方式和效率。
+
+select：Linux 中的 select 函数是一种常用的 I/O 复用技术。它允许程序监视多个文件描述符（FDs），以检测是否有任何一个或多个 FD 准备好进行读取、写入或是否有异常发生。这种技术特别适用于同时处理多个网络连接或其他类型的 I/O 操作（如：文件I/O）。
+#include <sys/select.h>
+int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
+/*
+参数结构
+nfds：监视的文件描述符集合中最大的文件描述符加一。
+readfds：一个指向 fd_set 结构的指针，用于监视哪些 FD 准备好进行读操作。
+writefds：一个指向 fd_set 结构的指针，用于监视哪些 FD 准备好进行写操作。
+exceptfds：一个指向 fd_set 结构的指针，用于监视哪些 FD 有异常发生。
+timeout：指定 select 等待准备就绪的 FD 的最长时间。
+*/
+fd_set 是一个文件描述符数组，用于指示 select 函数应该监视的 FDs。
+
+从用户空间传入内核空间：数组值为 0 代表不监控该文件描述符（fd），数组值为 1 代表要监控该文件描述符（fd）。
+从内核空间返回用户空间：数组值为 0 代表该文件描述符数据未准备就绪，数组值为 1 代表该文件描述符数据准备就绪。用户进程可以进行读操作了。
+
+
+#define PORT 8080
+#define MAX_CLIENTS 30
+
+int main() {
+   
+    int server_fd, new_socket, client_socket[MAX_CLIENTS];
+    struct sockaddr_in address;
+    int addrlen = sizeof(address);
+    fd_set readfds;
+    int max_sd, sd, activity, i, valread;
+    char buffer[1025];  // 数据缓冲区
+
+    // 初始化所有客户端套接字
+    for (i = 0; i < MAX_CLIENTS; i++) {
+   
+        client_socket[i] = 0;
+    }
+    // 创建套接字
+    server_fd = socket(AF_INET, SOCK_STREAM, 0)
+    // 绑定套接字
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(PORT);
+    bind(server_fd, (struct sockaddr *)&address, sizeof(address))<0
+
+    // 监听套接字
+    listen(server_fd, 3)
+
+    while (1) {
+   
+        FD_ZERO(&readfds);// 清空 fd_set
+        FD_SET(server_fd, &readfds); // 添加 server_fd 到 fd_set
+        max_sd = server_fd;
+        // 添加客户端套接字到 fd_set
+        for (i = 0; i < MAX_CLIENTS; i++) {
+   
+            sd = client_socket[i];
+            if (sd > 0) {
+   
+                FD_SET(sd, &readfds);
+            }
+            if (sd > max_sd) {
+   
+                max_sd = sd;
+            }
+        }
+
+        // 使用 select 监听套接字
+        activity = select(max_sd + 1, &readfds, NULL, NULL, NULL);
+
+        // 接受新连接
+        if (FD_ISSET(server_fd, &readfds)) {
+   
+            if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen))<0) {
+   
+              // 错误处理并退出
+            }
+            // 将新套接字添加到数组
+            for (i = 0; i < MAX_CLIENTS; i++) {
+   
+                if (client_socket[i] == 0) {
+   
+                    client_socket[i] = new_socket;
+                    break;
+                }
+            }
+        }
+     // 其他套接字的数据处理
+    for (i = 0; i < MAX_CLIENTS; i++) {
+   
+        sd = client_socket[i];
+        if (FD_ISSET(sd, &readfds)) {
+   
+            // 检查是否是断开连接，否则接收数据
+            if ((valread = read(sd, buffer, 1024)) == 0) {
+   
+                close(sd);
+                client_socket[i] = 0;
+            } else {
+   
+                buffer[valread] = '\0';
+                // 将接收到的数据发送回客户端
+                send(sd, buffer, strlen(buffer), 0);
+            }
+        }
+    }
+    return 0;
+}
+
+优点:
+能够同时监视多个套接字: select 允许服务器以单线程的方式监视多个套接字，来检测它们是否有可读、可写或异常条件发生。
+无需多线程或多进程：select 采用单线程的处理方式，使用 select 可以避免复杂的多线程或多进程管理，减少了上下文切换的开销，简化了并发处理。
+适用于小到中等规模的负载：对于不是很高的并发连接数（几百的连接数），select 通常可以满足需求，且效率不错。
+缺点:
+文件描述符限制：select 可以监视的文件描述符数量是有限的，通常由 FD_SETSIZE 常量决定，这在很多系统上默认是1024。这限制了服务器可以处理的最大并发连接数。当然 select 也会受限于系统级别的文件描述符数量限制。
+效率问题：随着文件描述符数量的增加，select 的性能会线性下降。每次调用select时，都需要重新传入整个文件描述符集合，内核需要遍历这个集合来更新状态，这在文件描述符很多时会成为瓶颈。
+响应时间变长：在 select 返回的文件描述符列表集合中，如果有多个文件描述符同时变为活跃状态，服务器通常会按顺序处理它们。这可能导致对列表前面的连接有偏见，使得后面的连接等待时间较长。
+
+poll：poll 也是一种 IO 复用技术，用于监视多个文件描述符（通常是网络套接字）的可读性、可写性和异常状态。与 select 类似，poll 允许您的程序监视多个文件描述符，直到一个或多个文件描述符准备好进行 IO 操作。这使得您可以同时管理多个网络连接，而不是逐个阻塞地处理它们。
+#include <poll.h>
+int poll(struct pollfd *fds, nfds_t nfds, int timeout);
+参数说明：
+/*
+fds：指向一个 pollfd 结构数组的指针，该数组包含要监视的文件描述符及其请求的事件（如 POLLIN 表示可读，POLLOUT 表示可写）。
+nfds：指定数组 fds 中的元素数量。
+timeout：指定等待时间（毫秒）。特殊值有：0 立即返回（非阻塞），-1 无限等待直到某个事件发生。
+*/
+
+poll 函数使用 pollfd 结构来指定要监视的文件描述符和事件类型：
+struct pollfd {
+   
+    int fd;         // 文件描述符
+    short events;   // 请求的事件
+    short revents;  // 实际发生的事件
+};
+fd：文件描述符
+events：要监视的事件，如 POLLIN、POLLOUT
+revents：由 poll 函数设置，表明哪些事件实际发生了
+
+底层数据结构：
+用户空间数组：
+用户空间程序使用数组（类型为 struct pollfd）来提供要监视的文件描述符及其感兴趣的事件
+
+但在内核中，为了有效地处理这些文件描述符，poll 的实现转而使用链表。
+内核空间链表：
+当 poll 系统调用被执行时，内核首先将这个数组中的数据复制到内核空间。
+在内核中，为了更灵活地处理可能的大量文件描述符，这些 pollfd 结构被组织成链表形式。
+链表的每个节点可能包含一个或多个 pollfd 结构，具体取决于可用的内存和文件描述符的数量。
+
+优点：
+无内置文件描述符限制：与 select 不同，poll 不受文件描述符数量的限制。select 通常受限于 FD_SETSIZE，这在处理大量并发连接时可能成为瓶颈。但它仍然受限于系统级别的文件描述符限制。
+简化的接口：poll 使用单个结构体数组来表示所有监视的文件描述符和相关事件，相比 select 需要使用三个文件描述符集（读、写、异常），接口更为简洁。
+更直观的事件模型：poll 使用位字段来表示不同的事件类型，这使得事件模型比 select 的方式更直观和易于理解。
+
+缺点：
+线性扫描开销：poll 在处理文件描述符时，需要对整个数组进行线性扫描。当监视的文件描述符数量非常大时，这可能导致性能下降。
+总的来说，poll 是 select 的一种改进，特别是在可处理的文件描述符数量上没有限制，但在高性能和大规模并发处理方面，epoll 在现代 Linux 系统上通常是更佳的选择。
+
+#define PORT 8080
+#define MAX_CLIENTS 30
+#define BUFFER_SIZE 1024
+
+int main() {
+   
+    int listen_fd, new_socket, valread;
+    struct sockaddr_in address;
+    int opt = 1;
+    int addrlen = sizeof(address);
+    char buffer[BUFFER_SIZE];
+    struct pollfd client_fds[MAX_CLIENTS];
+
+    // 创建监听套接字
+   listen_fd = socket(AF_INET, SOCK_STREAM, 0)；
+    // 绑定套接字
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(PORT);
+
+    bind(listen_fd, (struct sockaddr *)&address, sizeof(address)
+    listen(listen_fd, 3); // 开始监听
+    // 初始化 pollfd 结构
+    for (int i = 0; i < MAX_CLIENTS; i++) {
+   
+        client_fds[i].fd = -1;
+    }
+    client_fds[0].fd = listen_fd;
+    client_fds[0].events = POLLIN;
+
+    // 主循环
+    while (1) {
+   
+        int activity = poll(client_fds, MAX_CLIENTS, -1);
+        if (activity < 0) {
+   
+           //出错处理并退出
+        }
+        // 检查是否有新的连接
+        if (client_fds[0].revents & POLLIN) {
+   
+            if ((new_socket = accept(listen_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen)) < 0) {
+   
+               //出错处理并退出
+            }
+
+            // 添加新的套接字到数组
+            for (int i = 1; i < MAX_CLIENTS; i++) {
+   
+                if (client_fds[i].fd == -1) {
+   
+                    client_fds[i].fd = new_socket;
+                    client_fds[i].events = POLLIN;
+                    break;
+                }
+            }
+
+        }
+
+        // 检查客户端活动
+        for (int i = 1; i < MAX_CLIENTS; i++) {
+   
+            if (client_fds[i].fd > 0 && (client_fds[i].revents & POLLIN)) {
+   
+                if ((valread = read(client_fds[i].fd, buffer, BUFFER_SIZE)) > 0) {
+   
+                    buffer[valread] = '\0';
+                    send(client_fds[i].fd, buffer, valread, 0);
+                } else {
+   
+                    close(client_fds[i].fd);
+                    client_fds[i].fd = -1; // 标记为可用
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+epoll：epoll 是 Linux 系统中一种高效的 I/O 事件通知机制，特别适用于处理大量并发网络连接。与传统的 select 或 poll 方法相比，epoll 的独特之处在于其对活跃连接的高效处理能力。它通过维护一个活跃事件集合，避免了对所有文件描述符的遍历，显著提升了性能。这使得 epoll 成为构建高性能网络应用程序的理想选择。
+
+epoll 主要涉及三个系统调用：epoll_create、epoll_ctl 和 epoll_wait。
+// epoll_create：创建一个 epoll 实例。
+int epoll_create(int size);
+// poll_ctl：管理（添加、修改或删除）监视的文件描述符。
+int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
+/*
+epfd：由 epoll_create 返回的 epoll 实例文件描述符。
+op：要执行的操作，如 EPOLL_CTL_ADD（添加）、EPOLL_CTL_MOD（修改）、EPOLL_CTL_DEL（删除）。
+fd：关联的文件描述符。
+event：指向 epoll_event 结构的指针，指定感兴趣的事件和任何关联的用户数据。
+*/
+
+// 待在 epoll 文件描述符上注册的事件发生
+int epoll_wait(int epfd, struct epoll_event *events, int maxevents, int timeout);
+/*
+epfd：epoll 实例的文件描述符。
+events：用于从内核获取事件的 epoll_event 结构数组。
+maxevents：指示数组中可以返回的最大事件数。
+timeout：等待事件的最大时间（毫秒），-1 表示无限等待。
+*/
+
+struct epoll_event {
+   
+    uint32_t     events;    /* Epoll events */
+    epoll_data_t data;      /* User data variable */
+};
+
+/*
+events 字段用于指定感兴趣的事件类型，例如 EPOLLIN（可读）、EPOLLOUT（可写）等。
+data 字段通常用于存储用户定义的数据，如文件描述符、指向对象的指针等。
+*/
+
+//epoll_data_t 是一个联合（union），它用于存储用户定义的数据，可以是文件描述符、指针或任何其他用户需要的数据类型。
+
+typedef union epoll_data {
+   
+    void *ptr;
+    int fd;
+    uint32_t u32;
+    uint64_t u64;
+} epoll_data_t;
+
+/*
+例如，您可以在 epoll_ctl 调用时，使用 epoll_data_t 的 fd 字段来存储正在监视的文件描述符，
+或者使用 ptr 字段来存储指向某个对象或结构的指针。这样，在事件发生时，您可以快速访问与该事件相关联的数据。
+*/
+
+在 Linux 中，epoll 提供了两种触发模式：水平触发（Level-Triggered, LT）和边缘触发（Edge-Triggered, ET）。理解这两种模式对于使用 epoll 来说非常关键，因为它们决定了在文件描述符（FD）上发生事件时，epoll 如何通知应用程序。
+
+水平触发（Level-Triggered, LT）
+触发条件：只要文件描述符关联的 socket 缓冲区上有数据可读或有空间可写，epoll_wait 就会返回该文件描述符。这意味着，只要有未处理的数据（如缓冲区中还有数据未读），epoll_wait 会不断地通知应用程序去读数据至用户空间缓存，从而进行处理。
+处理方式：这种模式更加容易处理，因为即使应用程序没有一次性处理所有的可用数据，epoll_wait 会再次通知你该文件描述符上仍有待处理的数据。
+
+水平触发的优点：
+简单易懂：水平触发的行为更直观，容易理解和实现，尤其是对于那些不太熟悉非阻塞 I/O 编程的开发者。
+容错性高：在水平触发模式下，只要文件描述符的状态仍满足条件（如有数据可读），epoll_wait 会持续通知应用程序，减少了因遗漏事件处理导致的错误。
+
+水平触发的缺点：
+可能的性能开销：在高负载或大量并发连接的情况下，水平触发可能导致频繁的 epoll_wait 响应。因为只要文件描述符仍然处于活跃状态（例如，仍有数据可读），它就会不断地触发事件。
+资源使用效率：由于频繁的事件触发，水平触发模式可能导致更高的CPU使用率，尤其是当有大量活跃的文件描述符时。
+
+struct epoll_event event;
+int epoll_fd, fd;
+
+event.events = EPOLLIN; // LT 是默认模式
+event.data.fd = fd;
+epoll_ctl(epoll_fd, EPOLL_CTL_ADD, fd, &event);
+
+// 事件循环
+while (true) {
+   
+    struct epoll_event events[MAX_EVENTS];
+    int n = epoll_wait(epoll_fd, events, MAX_EVENTS, -1);
+    for (int i = 0; i < n; i++) {
+   
+        if (events[i].data.fd == fd) {
+   
+            // 可以读取部分数据，即使不全部读取完，该 FD 仍然会再次报告
+        }
+    }
+}
+
+边缘触发（Edge-Triggered, ET）
+触发条件：只有文件描述符的状态发生改变时，epoll_wait 才会通知应用进程来读写数据（只通知一次），直到文件描述符的状态再次发生变化。
+
+文件描述符的状态发生改变指的是 fd 从不可读的状态改变成可读的状态或者fd 从不可写的状态改变成可写的状态。
+
+对于 socket 可读事件来说：
+fd 从不可读的状态改变成可读的状态，简单理解就是：fd 对应的 socket 接收缓冲区从无数据到有数据。
+具体点：就是当数据首次到达一个空的 socket 接收缓冲区时，epoll_wait 会通知应用程序一次。此时，缓冲区状态从“无数据可读”变为“有数据可读”。又或者应用程序开始读取数据，并将缓冲区中的数据读完（读操作返回 EAGAIN），然后又有新数据到达。这两种情况都是属于 socket 接收缓冲区从无数据到有数据的例子。
+
+对于 socket 可写事件来说：
+文件描述符的状态发生改变指的是：fd 从不可写的状态改变成可写的状态。简单理解就是：fd 对应的 socket 发送缓冲区从满到不满。
+
+场景一：持续有空间
+假设你有一个socket连接，你正在向它发送数据。在边缘触发（ET）模式下：
+初始状态：连接建立后，发送缓冲区为空，所以你可以开始发送数据。
+持续发送：只要发送缓冲区有空间，你可以继续发送数据。在这个过程中，如果缓冲区从未真正变满过（即，你的发送速度不超过网络层处理和发送数据的速度），epoll_wait不会因为缓冲区有空间而特别通知你，因为从epoll的角度看，这不是一个“状态变化”。
+
+场景二：缓冲区满后又有空间
+现在，让我们看一个缓冲区实际变满的情况：
+1.发送直至满：你继续发送数据，直到达到一个点，发送缓冲区满了，这时，尝试再发送数据会失败（通常返回EAGAIN或EWOULDBLOCK）。
+2.等待可写：这时，你应该停止发送数据，等待 epoll_wait 通知你 socket 再次可写。
+3.缓冲区部分清空：随着时间的推移，网络层将缓冲区中的数据发送出去，缓冲区从“满”变为“有空间”（即，部分数据被发送出去，为新数据腾出了空间）。
+4.收到通知：因为缓冲区的状态从“满”变为“有空间”，这是一个状态变化，epoll_wait 会通知你 socket 现在可写。
+处理方式：ET 模式要求你必须一次性处理所有可用的数据。如果处理不完全，epoll_wait 不会再次通知你该文件描述符上的事件，除非新的数据到达或再次变为可写。
+
+struct epoll_event event;
+int epoll_fd, fd;
+
+event.events = EPOLLIN | EPOLLET; // 启用 ET 模式
+event.data.fd = fd;
+epoll_ctl(epoll_fd, EPOLL_CTL_ADD, fd, &event);
+
+// 事件循环
+while (true) {
+   
+    struct epoll_event events[MAX_EVENTS];
+    int n = epoll_wait(epoll_fd, events, MAX_EVENTS, -1);
+    for (int i = 0; i < n; i++) {
+   
+        if (events[i].data.fd == fd) {
+   
+            while (true) {
+   
+                ssize_t count = read(fd, buf, sizeof(buf));
+                if (count == -1) {
+   
+                    if (errno != EAGAIN) {
+   
+                        // 处理非 EAGAIN 错误
+                    }
+                    break; // 没有更多数据可读
+                }
+                // 处理读取的数据
+            }
+        }
+    }
+}
+
+优点：减少通知频率,提高事件处理效率,降低资源占用,更好的扩展性：
+
+缺点：处理逻辑更加复杂,可能会错过一些数据,依赖于非阻塞 I/O
+
+总结：
+水平触发：更易于使用和理解，但可能会导致更多的 epoll_wait 调用，尤其是在高负载下。
+边缘触发：更高的性能潜力，减少了 epoll_wait 调用的次数，但需要更谨慎的缓冲区管理和错误处理。
+
+
+优点：
+1.高效的文件描述符管理
+2.更好的可扩展性
+3.减少复制操作
+4.支持边缘触发（ET）和水平触发（LT）
+
+缺点：
+平台依赖性,
+边缘触发模式的挑战
+#define MAX_EVENTS 10
+#define READ_BUF_SIZE 1024
+#define PORT 8080
+int main() {
+   
+    int listen_fd, conn_fd, epoll_fd;
+    struct sockaddr_in server_addr;
+    struct epoll_event event, events[MAX_EVENTS];
+    int event_count, i;
+    char read_buf[READ_BUF_SIZE];
+
+    socket(AF_INET, SOCK_STREAM, 0);
+    memset(&server_addr, 0, sizeof(server_addr));
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_addr.s_addr = INADDR_ANY;
+    server_addr.sin_port = htons(PORT);
+    bind(listen_fd, (struct sockaddr *)&server_addr, sizeof(server_addr))
+    listen(listen_fd, SOMAXCONN)
+
+    epoll_fd = epoll_create1(0);
+    event.events = EPOLLIN;
+    event.data.fd = listen_fd;
+
+    epoll_ctl(epoll_fd, EPOLL_CTL_ADD, listen_fd, &event)
+
+    while (1) {
+   
+        event_count = epoll_wait(epoll_fd, events, MAX_EVENTS, -1);
+
+        for (i = 0; i < event_count; i++) {
+   
+            if (events[i].data.fd == listen_fd) {
+   
+                conn_fd = accept(listen_fd, NULL, NULL);
+                if (conn_fd == -1) {
+   
+                    perror("accept");
+                    continue;
+                }
+                event.events = EPOLLIN | EPOLLET;
+                event.data.fd = conn_fd;
+                if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, conn_fd, &event) == -1) {
+   
+                    perror("epoll_ctl");
+                    close(conn_fd);
+                    continue;
+                }
+            } else {
+   
+                int nbytes = read(events[i].data.fd, read_buf, READ_BUF_SIZE);
+                if (nbytes <= 0) {
+   
+                    close(events[i].data.fd);
+                } else {
+   
+                    write(events[i].data.fd, read_buf, nbytes);
+                }
+            }
+        }
+    }
+    close(listen_fd);
+    close(epoll_fd);
+    return 0;
+}

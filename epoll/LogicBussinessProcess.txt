@@ -1,0 +1,53 @@
+客户端
+   |
+   v
+网卡DMA
+   |
+   v
+TCP协议栈
+   |
+   v
+socket缓冲区
+   |
+   v
+epoll回调
+   |
+   v
+ready list
+   |
+   v
+epoll_wait返回
+   |
+   v
+recv读取
+   |
+   v
+协议解析
+   |
+   v
+业务线程池
+   |
+   v
+send响应
+
+
+epoll工作流：
+socket()
+   |
+   v
+bind()
+   |
+   v
+listen()
+   |
+   v
+epoll_create1()
+   |
+   v
+epoll_ctl(ADD)
+   |
+   v
+epoll_wait()
+   |
+   v
+accept()/recv()/send()

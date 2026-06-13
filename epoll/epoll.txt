@@ -1,0 +1,64 @@
+lt:水平模式，一有活跃fd就直接返回
+优点：
+简单
+不容易丢数据
+缺点：
+通知较多
+
+
+et：边缘模式，只在状态变化时通知一次
+
+
+epoll_ctl(
+    epfd,
+    EPOLL_CTL_ADD,
+    client_fd,
+    &ev
+);把client_fd加入监听
+
+//核心函数
+int n = epoll_wait(
+    epfd,              //哪个 epoll。
+    events,             //输出数组，内核把活跃数组写入里面
+    MAX_EVENTS,         //最多返回多少事件。
+    -1                  //超时时间。
+);
+值	含义
+-1	永久阻塞
+0	立即返回
+>0	超时毫秒
+
+
+//监听事件
+//struct epoll_event {
+
+//     uint32_t events;
+
+//     epoll_data_t data;
+// };
+| 事件     | 含义  |
+| -------- | ----   |
+| EPOLLIN  | 可读   |
+| EPOLLOUT | 可写   |
+| EPOLLERR | 错误   |
+| EPOLLHUP | 断开   |
+| EPOLLET  | ET模式 |
+
+//最重要的函数
+int epoll_ctl(
+    int epfd,
+    int op,
+    int fd,
+    struct epoll_event* event
+);
+参数1：epfd，哪个 epoll。
+
+参数2：op操作类型。三种操作
+类型	含义
+EPOLL_CTL_ADD	添加
+EPOLL_CTL_MOD	修改
+EPOLL_CTL_DEL	删除
+
+参数3：fd，哪个 socket。
+
+参数4：event，监听事件。返回值：成功：0，失败：-1

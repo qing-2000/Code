@@ -1,0 +1,11 @@
+事件	含义
+POLLIN	可读
+POLLOUT	可写
+POLLERR	错误
+POLLHUP	连接断开
+
+struct pollfd {
+    int fd;         // 文件描述符
+    short events;   // 关心的事件
+    short revents;  // 实际发生的事件
+};
